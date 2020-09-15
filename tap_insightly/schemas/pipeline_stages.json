@@ -1,0 +1,12 @@
+{
+  "type": ["null", "object"],
+  "additionalProperties": false,
+  "properties": {
+    "STAGE_ID": { "type": ["integer"] },
+    "PIPELINE_ID": { "type": ["integer"] },
+    "STAGE_NAME": { "type": ["null", "string"] },
+    "STAGE_ORDER": { "type": ["null", "integer"] },
+    "ACTIVITYSET_ID": { "type": ["null", "integer"] },
+    "OWNER_USER_ID": { "type": ["null", "integer"] }
+  }
+}

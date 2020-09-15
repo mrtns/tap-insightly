@@ -1,0 +1,11 @@
+{
+  "type": ["null", "object"],
+  "additionalProperties": false,
+  "properties": {
+    "PIPELINE_ID": { "type": ["integer"] },
+    "PIPELINE_NAME": { "type": ["null", "string"] },
+    "FOR_OPPORTUNITIES": { "type": ["null", "boolean"] },
+    "FOR_PROJECTS": { "type": ["null", "boolean"] },
+    "OWNER_USER_ID": { "type": ["null", "integer"] }
+  }
+}
