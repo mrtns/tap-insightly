@@ -8,12 +8,10 @@ ID_FIELDS = {
     "pipeline_stages": "STAGE_ID",
 }
 
-CAN_FILTER = set(["contacts", "opportunities", "organisations"])
-
 SYNC_FUNCTIONS = {
-    "contacts": handle_with_links("contacts"),
-    "opportunities": handle_with_links("opportunities"),
-    "organisations": handle_with_links("organisations"),
-    "pipelines": handle_basic("pipelines"),
-    "pipeline_stages": handle_basic("pipeline_stages"),
+    "contacts": handle_with_links,
+    "opportunities": handle_with_links,
+    "organisations": handle_with_links,
+    "pipelines": handle_basic,
+    "pipeline_stages": handle_basic,
 }

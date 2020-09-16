@@ -5,7 +5,7 @@ import singer
 from singer import metadata
 
 from tap_insightly.utility import get_abs_path, session
-from tap_insightly.config import ID_FIELDS, SYNC_FUNCTIONS, CAN_FILTER
+from tap_insightly.config import ID_FIELDS, SYNC_FUNCTIONS
 
 logger = singer.get_logger()
 
@@ -112,7 +112,7 @@ def do_sync(config, state, catalog):
             singer.write_schema(stream_id, stream_schema, stream["key_properties"])
 
             sync_func = SYNC_FUNCTIONS[stream_id]
-            state = sync_func(stream_schema, state, mdata, stream_id in CAN_FILTER)
+            state = sync_func(stream_id, stream_schema, state, mdata)
 
             singer.write_state(state)
 
