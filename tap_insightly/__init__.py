@@ -102,9 +102,8 @@ def do_sync(config, state, catalog):
 
     singer.write_state(state)
 
-    links_schema = next(s for s in catalog["streams"] if s["tap_stream_id"] == "links")[
-        "schema"
-    ]
+    links_stream = next(s for s in catalog["streams"] if s["tap_stream_id"] == "links")
+    links_schema = links_stream["schema"]
 
     for stream in catalog["streams"]:
         stream_id = stream["tap_stream_id"]
@@ -121,6 +120,9 @@ def do_sync(config, state, catalog):
 
             schemas = {stream_id: stream_schema}
             if stream_id in HAS_LINKS and "links" in selected_stream_ids:
+                singer.write_schema(
+                    "links", links_schema, links_stream["key_properties"]
+                )
                 schemas["links"] = links_schema
 
             state = handle_resource(
