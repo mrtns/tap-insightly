@@ -20,6 +20,35 @@ base_url = "https://api.insightly.com/v3.1/"
 pageSize = 500
 
 
+def get_generic(source, url, qs={}):
+    with metrics.http_request_timer(source) as timer:
+        query_string = build_query_string({"count_total": "true", **qs})
+        resp = session.request(method="get", url=base_url + url + query_string)
+
+        if resp.status_code == 401:
+            raise AuthException(resp.text)
+        if resp.status_code == 403:
+            raise AuthException(resp.text)
+        if resp.status_code == 404:
+            raise NotFoundException(resp.text)
+        resp.raise_for_status()  # throw exception if not 200
+
+        timer.tags[metrics.Tag.http_status_code] = resp.status_code
+        return resp.json(), resp
+
+
+def get_all_pages(source, url, extra_query_string={}):
+    skip = 0
+
+    while True:
+        json, resp = get_generic(
+            source, url, {**extra_query_string, "skip": skip, "top": pageSize},
+        )
+        yield json
+        skip += pageSize
+        total = resp.headers.get("x-total-count")
+        if total == None or skip > int(total):
+            break
 
 
 def get_endpoint(resource):
