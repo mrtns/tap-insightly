@@ -9,6 +9,9 @@ This tap:
 - Pulls raw data from the [Insightly API](https://api.insightly.com/)
 - Extracts the following resources from Insightly:
   - contacts
+  - links
+  - pipelines
+  - pipeline stages
   - opportunities
   - organisations
 - Outputs the schema for each resource

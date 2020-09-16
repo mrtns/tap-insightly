@@ -4,7 +4,8 @@ import singer
 from singer import metadata
 
 from tap_insightly.utility import get_abs_path, session
-from tap_insightly.config import ID_FIELDS, SYNC_FUNCTIONS
+from tap_insightly.config import ID_FIELDS, HAS_LINKS
+from tap_insightly.fetch import handle_resource
 
 logger = singer.get_logger()
 
@@ -101,18 +102,29 @@ def do_sync(config, state, catalog):
 
     singer.write_state(state)
 
+    links_schema = next(s for s in catalog["streams"] if s["tap_stream_id"] == "links")[
+        "schema"
+    ]
+
     for stream in catalog["streams"]:
         stream_id = stream["tap_stream_id"]
         stream_schema = stream["schema"]
         mdata = stream["metadata"]
 
+        # links are a special case
+        if stream_id == "links":
+            continue
+
         # if stream is selected, write schema and sync
         if stream_id in selected_stream_ids:
             singer.write_schema(stream_id, stream_schema, stream["key_properties"])
 
-            sync_func = SYNC_FUNCTIONS[stream_id]
-            state = sync_func(
-                stream_id, stream_schema, ID_FIELDS[stream_id], state, mdata
+            schemas = {stream_id: stream_schema}
+            if stream_id in HAS_LINKS and "links" in selected_stream_ids:
+                schemas["links"] = links_schema
+
+            state = handle_resource(
+                stream_id, schemas, ID_FIELDS[stream_id], state, mdata,
             )
 
             singer.write_state(state)

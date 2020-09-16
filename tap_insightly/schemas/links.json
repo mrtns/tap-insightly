@@ -1,0 +1,11 @@
+{
+  "type": ["null", "object"],
+  "additionalProperties": false,
+  "properties": {
+    "LINK_ID": { "type": ["integer"] },
+    "OBJECT_NAME": { "type": ["null", "string"] },
+    "OBJECT_ID": { "type": ["null", "integer"] },
+    "LINK_OBJECT_NAME": { "type": ["null", "string"] },
+    "LINK_OBJECT_ID": { "type": ["null", "integer"] }
+  }
+}

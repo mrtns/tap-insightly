@@ -21,7 +21,7 @@ def transform_custom_field(id_field, row):
     return row
 
 
-def handle_basic(resource, schema, id_field, state, mdata):
+def handle_resource(resource, schemas, id_field, state, mdata):
     extraction_time = singer.utils.now()
     endpoint = get_endpoint(resource)
     bookmark = get_bookmark(state, resource, "since")
@@ -34,9 +34,26 @@ def handle_basic(resource, schema, id_field, state, mdata):
                 if resource in HAS_CUSTOM_FIELDS:
                     row = transform_custom_field(id_field, row)
 
-                write_record(row, resource, schema, mdata, extraction_time)
+                write_record(row, resource, schemas[resource], mdata, extraction_time)
                 counter.increment()
+
+                if "links" in schemas:
+                    handle_links(
+                        resource,
+                        row[id_field],
+                        schemas["links"],
+                        mdata,
+                        extraction_time,
+                    )
     return write_bookmark(state, resource, extraction_time)
+
+
+def handle_links(parent_resource, parent_id, schema, mdata, dt):
+    with metrics.record_counter("links") as counter:
+        json, _resp = get_generic("links", f"{parent_resource}/{parent_id}/Links")
+        for row in json:
+            write_record(row, "links", schema, mdata, dt)
+            counter.increment()
 
 
 # More convenient to use but has to all be held in memory, so use write_record instead for resources with many rows
