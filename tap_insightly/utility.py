@@ -23,7 +23,18 @@ pageSize = 500
 def get_generic(source, url, qs={}):
     with metrics.http_request_timer(source) as timer:
         query_string = build_query_string({"count_total": "true", **qs})
-        resp = session.request(method="get", url=base_url + url + query_string)
+        url = (
+            base_url
+            + url
+            + (
+                # can only filter from the /search endpoint
+                ""
+                if "date_updated_utc" not in qs
+                else "/Search"
+            )
+            + query_string
+        )
+        resp = session.request(method="get", url=url)
 
         if resp.status_code == 401:
             raise AuthException(resp.text)
@@ -55,6 +66,10 @@ def get_endpoint(resource):
     endpoints = {"pipeline_stages": "PipelineStages"}
     # get endpoint if available, default to just resource name
     return endpoints.get(resource, resource)
+
+
+def formatDate(dt):
+    return datetime.strftime(dt, "%Y-%m-%d %H:%M:%S")
 
 
 def get_abs_path(path):
