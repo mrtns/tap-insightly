@@ -1,6 +1,5 @@
 import os
 import json
-import base64
 import singer
 from singer import metadata
 
@@ -95,8 +94,8 @@ def get_stream_from_catalog(stream_id, catalog):
 
 
 def do_sync(config, state, catalog):
-    # Pass API key using basic auth: base64-encode it as the username, and leave the password blank
-    session.auth = (base64.b64encode(config["api_key"].encode()), "")
+    # Insightly API uses basic auth. Pass API key as the username and leave the password blank
+    session.auth = (config["api_key"], "")
 
     selected_stream_ids = get_selected_streams(catalog)
 
