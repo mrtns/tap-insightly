@@ -111,7 +111,9 @@ def do_sync(config, state, catalog):
             singer.write_schema(stream_id, stream_schema, stream["key_properties"])
 
             sync_func = SYNC_FUNCTIONS[stream_id]
-            state = sync_func(stream_id, stream_schema, state, mdata)
+            state = sync_func(
+                stream_id, stream_schema, ID_FIELDS[stream_id], state, mdata
+            )
 
             singer.write_state(state)
 
