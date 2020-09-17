@@ -1,0 +1,23 @@
+{
+  "type": ["null", "object"],
+  "additionalProperties": false,
+  "properties": {
+    "USER_ID": { "type": ["integer"] },
+    "CONTACT_ID": { "type": ["null", "integer"] },
+    "FIRST_NAME": { "type": ["null", "string"] },
+    "LAST_NAME": { "type": ["null", "string"] },
+    "TIMEZONE_ID": { "type": ["null", "string"] },
+    "EMAIL_ADDRESS": { "type": ["null", "string"] },
+    "ADMINISTRATOR": { "type": ["null", "boolean"] },
+    "ACCOUNT_OWNER": { "type": ["null", "boolean"] },
+    "ACTIVE": { "type": ["null", "boolean"] },
+    "DATE_CREATED_UTC": {
+      "type": ["null", "string"],
+      "format": "date-time"
+    },
+    "DATE_UPDATED_UTC": {
+      "type": ["null", "string"],
+      "format": "date-time"
+    }
+  }
+}

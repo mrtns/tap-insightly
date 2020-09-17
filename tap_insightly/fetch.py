@@ -10,7 +10,7 @@ from tap_insightly.utility import (
 )
 
 
-CAN_FILTER = set(["contacts", "opportunities", "organisations"])
+CAN_FILTER = set(["contacts", "opportunities", "organisations", "users"])
 HAS_CUSTOM_FIELDS = set(["contacts", "opportunities"])
 
 # Custom fields are an array, so will become a new table (thanks to target-redshift)

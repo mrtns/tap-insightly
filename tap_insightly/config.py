@@ -5,6 +5,7 @@ ID_FIELDS = {
     "organisations": "ORGANISATION_ID",
     "pipelines": "PIPELINE_ID",
     "pipeline_stages": "STAGE_ID",
+    "users": "USER_ID",
 }
 
 HAS_LINKS = set(["contacts", "opportunities", "organisations"])
