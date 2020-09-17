@@ -4,7 +4,6 @@
   "properties": {
     "OPPORTUNITY_ID": { "type": ["integer"] },
     "OPPORTUNITY_NAME": { "type": ["null", "string"] },
-    "OPPORTUNITY_DETAILS": { "type": ["null", "string"] },
     "OPPORTUNITY_STATE": { "type": ["null", "string"] },
     "RESPONSIBLE_USER_ID": { "type": ["null", "integer"] },
     "CATEGORY_ID": { "type": ["null", "integer"] },
