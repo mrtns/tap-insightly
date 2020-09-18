@@ -9,6 +9,7 @@ This tap:
 - Pulls raw data from the [Insightly API](https://api.insightly.com/)
 - Extracts the following resources from Insightly:
   - contacts
+  - leads
   - links
   - pipelines
   - pipeline stages
