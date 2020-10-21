@@ -4,6 +4,8 @@
   "properties": {
     "ORGANISATION_ID": { "type": ["integer"] },
     "ORGANISATION_NAME": { "type": ["null", "string"] },
+    "BACKGROUND": { "type": ["null", "string"] },
+    "IMAGE_URL": { "type": ["null", "string"] },
     "OWNER_USER_ID": { "type": ["null", "integer"] },
     "DATE_CREATED_UTC": { "type": ["null", "string"], "format": "date-time" },
     "DATE_UPDATED_UTC": { "type": ["null", "string"], "format": "date-time" },
@@ -15,6 +17,54 @@
       "type": ["null", "string"],
       "format": "date-time"
     },
-    "CREATED_USER_ID": { "type": ["null", "integer"] }
+    "CREATED_USER_ID": { "type": ["null", "integer"] },
+    "PHONE": { "type": ["null", "string"] },
+    "PHONE_FAX": { "type": ["null", "string"] },
+    "WEBSITE": { "type": ["null", "string"] },
+    "ADDRESS_BILLING_STREET": { "type": ["null", "string"] },
+    "ADDRESS_BILLING_CITY": { "type": ["null", "string"] },
+    "ADDRESS_BILLING_STATE": { "type": ["null", "string"] },
+    "ADDRESS_BILLING_COUNTRY": { "type": ["null", "string"] },
+    "ADDRESS_BILLING_POSTCODE": { "type": ["null", "string"] },
+    "ADDRESS_SHIP_STREET": { "type": ["null", "string"] },
+    "ADDRESS_SHIP_CITY": { "type": ["null", "string"] },
+    "ADDRESS_SHIP_STATE": { "type": ["null", "string"] },
+    "ADDRESS_SHIP_POSTCODE": { "type": ["null", "string"] },
+    "ADDRESS_SHIP_COUNTRY": { "type": ["null", "string"] },
+    "SOCIAL_LINKEDIN": { "type": ["null", "string"] },
+    "SOCIAL_FACEBOOK": { "type": ["null", "string"] },
+    "SOCIAL_TWITTER": { "type": ["null", "string"] },
+    "EMAIL_DOMAIN": { "type": ["null", "string"] },
+    "CUSTOMFIELDS": {
+      "type": ["array"],
+      "items": {
+        "type": ["object"],
+        "properties": {
+          "LEAD_ID": { "type": ["integer"] },
+          "FIELD_NAME": { "type": ["string"] },
+          "FIELD_VALUE": { "type": ["null", "number", "string"] },
+          "CUSTOM_FIELD_ID": { "type": ["string"] }
+        }
+      }
+    },
+    "TAGS": {
+      "type": ["array"],
+      "items": {
+        "type": ["object"],
+        "properties": {
+          "TAG_NAME": { "type": ["string"] }
+        }
+      }
+    },
+    "EMAILDOMAINS": {
+      "type": ["array"],
+      "items": {
+        "type": ["object"],
+        "properties": {
+          "EMAIL_DOMAIN_ID": { "type": ["integer"] },
+          "EMAIL_DOMAIN": { "type": ["string"] }
+        }
+      }
+    }
   }
 }
