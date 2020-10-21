@@ -1,5 +1,6 @@
 ID_FIELDS = {
     "contacts": "CONTACT_ID",
+    "leads": "LEAD_ID",
     "links": "LINK_ID",
     "opportunities": "OPPORTUNITY_ID",
     "organisations": "ORGANISATION_ID",
@@ -8,4 +9,4 @@ ID_FIELDS = {
     "users": "USER_ID",
 }
 
-HAS_LINKS = set(["contacts", "opportunities", "organisations"])
+HAS_LINKS = set(["contacts", "leads", "opportunities", "organisations"])

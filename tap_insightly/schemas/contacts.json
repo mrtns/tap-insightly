@@ -3,7 +3,6 @@
   "additionalProperties": false,
   "properties": {
     "CONTACT_ID": { "type": ["integer"] },
-    "TITLE": { "type": ["null", "string"] },
     "SALUTATION": { "type": ["null", "string"] },
     "FIRST_NAME": { "type": ["null", "string"] },
     "LAST_NAME": { "type": ["null", "string"] },
@@ -21,6 +20,8 @@
     },
     "CREATED_USER_ID": { "type": ["null", "integer"] },
     "ORGANISATION_ID": { "type": ["null", "integer"] },
+    "TITLE": { "type": ["null", "string"] },
+    "EMAIL_OPTED_OUT": { "type": ["null", "boolean"] },
     "CUSTOMFIELDS": {
       "type": ["array"],
       "items": {
@@ -30,6 +31,15 @@
           "FIELD_NAME": { "type": ["string"] },
           "FIELD_VALUE": { "type": ["null", "number", "string"] },
           "CUSTOM_FIELD_ID": { "type": ["string"] }
+        }
+      }
+    },
+    "TAGS": {
+      "type": ["array"],
+      "items": {
+        "type": ["object"],
+        "properties": {
+          "TAG_NAME": { "type": ["string"] }
         }
       }
     }
