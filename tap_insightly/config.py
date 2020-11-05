@@ -1,5 +1,8 @@
 ID_FIELDS = {
     "contacts": "CONTACT_ID",
+    "emails": "EMAIL_ID",
+    "full_emails": "EMAIL_ID",
+    "file_attachments": "FILE_ID",
     "leads": "LEAD_ID",
     "links": "LINK_ID",
     "opportunities": "OPPORTUNITY_ID",
@@ -10,3 +13,5 @@ ID_FIELDS = {
 }
 
 HAS_LINKS = set(["contacts", "leads", "opportunities", "organisations"])
+HAS_FULL_EMAILS = set(["emails"])
+HAS_FILE_ATTACHMENTS = set(["emails"])

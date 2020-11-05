@@ -1,0 +1,38 @@
+{
+  "type": ["null", "object"],
+  "additionalProperties": false,
+  "properties": {
+    "EMAIL_TO": { "type": ["null", "string"] },
+    "EMAIL_CC": { "type": ["null", "string"] },
+    "EMAIL_ID": { "type": ["integer"] },
+    "EMAIL_FROM": { "type": ["null", "string"] },
+    "SUBJECT": { "type": ["null", "string"] },
+    "EMAIL_DATE_UTC": {
+      "type": ["null", "string"],
+      "format": "date-time"
+    },
+    "FORMAT": { "type": ["null", "string"] },
+    "SIZE": { "type": ["null", "integer"] },
+    "VISIBLE_TO": { "type": ["null", "string"] },
+    "OWNER_USER_ID": { "type": ["null", "integer"] },
+    "VISIBLE_TEAM_ID": { "type": ["null", "integer"] },
+    "DATE_CREATED_UTC": {
+      "type": ["null", "string"],
+      "format": "date-time"
+    },
+    "QUEUED_SEND_DATE_UTC": {
+      "type": ["null", "string"],
+      "format": "date-time"
+    },
+    "CREATED_USER_ID": { "type": ["null", "integer"] },
+    "TAGS": {
+      "type": ["array"],
+      "items": {
+        "type": ["object"],
+        "properties": {
+          "TAG_NAME": { "type": ["string"] }
+        }
+      }
+    }
+  }
+}

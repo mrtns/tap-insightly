@@ -4,7 +4,7 @@ import singer
 from singer import metadata
 
 from tap_insightly.utility import get_abs_path, session
-from tap_insightly.config import ID_FIELDS, HAS_LINKS
+from tap_insightly.config import ID_FIELDS, HAS_LINKS, HAS_FULL_EMAILS, HAS_FILE_ATTACHMENTS
 from tap_insightly.fetch import handle_resource
 
 logger = singer.get_logger()
@@ -104,14 +104,18 @@ def do_sync(config, state, catalog):
 
     links_stream = next(s for s in catalog["streams"] if s["tap_stream_id"] == "links")
     links_schema = links_stream["schema"]
+    full_emails_stream = next(s for s in catalog["streams"] if s["tap_stream_id"] == "full_emails")
+    full_emails_schema = full_emails_stream["schema"]
+    file_attachments_stream = next(s for s in catalog["streams"] if s["tap_stream_id"] == "file_attachments")
+    file_attachments_schema = file_attachments_stream["schema"]
 
     for stream in catalog["streams"]:
         stream_id = stream["tap_stream_id"]
         stream_schema = stream["schema"]
         mdata = stream["metadata"]
 
-        # links are a special case
-        if stream_id == "links":
+        # special (n+1) cases
+        if stream_id in ("links", "full_emails", "file_attachments"):
             continue
 
         # if stream is selected, write schema and sync
@@ -124,6 +128,16 @@ def do_sync(config, state, catalog):
                     "links", links_schema, links_stream["key_properties"]
                 )
                 schemas["links"] = links_schema
+            if stream_id in HAS_FULL_EMAILS and "full_emails" in selected_stream_ids:
+                singer.write_schema(
+                    "full_emails", full_emails_schema, full_emails_stream["key_properties"]
+                )
+                schemas["full_emails"] = full_emails_schema
+            if stream_id in HAS_FILE_ATTACHMENTS and "file_attachments" in selected_stream_ids:
+                singer.write_schema(
+                    "file_attachments", file_attachments_schema, file_attachments_stream["key_properties"]
+                )
+                schemas["file_attachments"] = file_attachments_schema
 
             state = handle_resource(
                 stream_id, schemas, ID_FIELDS[stream_id], state, mdata,

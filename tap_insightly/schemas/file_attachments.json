@@ -1,0 +1,15 @@
+{
+  "type": ["null", "object"],
+  "additionalProperties": false,
+  "properties": {
+    "FILE_ID": { "type": ["integer"] },
+    "FILE_NAME": { "type": ["null", "string"] },
+    "CONTENT_TYPE": { "type": ["null", "string"] },
+    "FILE_SIZE": { "type": ["null", "integer"] },
+    "FILE_CATEGORY_ID": { "type": ["null", "string"] },
+    "OWNER_USER_ID": { "type": ["null", "integer"] },
+    "DATE_CREATED_UTC": { "type": ["null", "string"] },
+    "DATE_UPDATED_UTC": { "type": ["null", "string"] },
+    "URL": { "type": ["null", "string"] }
+  }
+}

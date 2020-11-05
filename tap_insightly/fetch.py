@@ -10,7 +10,7 @@ from tap_insightly.utility import (
 )
 
 
-CAN_FILTER = set(["contacts", "leads", "opportunities", "organisations", "users"])
+CAN_FILTER = set(["contacts", "emails", "leads", "opportunities", "organisations", "users"])
 HAS_CUSTOM_FIELDS = set(["contacts", "leads", "opportunities"])
 
 # Custom fields are an array, so will become a new table (thanks to target-redshift)
@@ -45,6 +45,22 @@ def handle_resource(resource, schemas, id_field, state, mdata):
                         mdata,
                         extraction_time,
                     )
+                if "full_emails" in schemas:
+                    handle_full_emails(
+                        resource,
+                        row[id_field],
+                        schemas["full_emails"],
+                        mdata,
+                        extraction_time,
+                    )
+                if "file_attachments" in schemas:
+                    handle_file_attachments(
+                        resource,
+                        row[id_field],
+                        schemas["file_attachments"],
+                        mdata,
+                        extraction_time,
+                    )
     return write_bookmark(state, resource, extraction_time)
 
 
@@ -55,6 +71,18 @@ def handle_links(parent_resource, parent_id, schema, mdata, dt):
             write_record(row, "links", schema, mdata, dt)
             counter.increment()
 
+def handle_full_emails(parent_resource, parent_id, schema, mdata, dt):
+    with metrics.record_counter("full_emails") as counter:
+        json, _resp = get_generic("full_emails", f"{parent_resource}/{parent_id}")
+        write_record(json, "full_emails", schema, mdata, dt)
+        counter.increment()
+
+def handle_file_attachments(parent_resource, parent_id, schema, mdata, dt):
+    with metrics.record_counter("file_attachments") as counter:
+        json, _resp = get_generic("file_attachments", f"{parent_resource}/{parent_id}/FileAttachments")
+        for row in json:
+            write_record(row, "file_attachments", schema, mdata, dt)
+            counter.increment()
 
 # More convenient to use but has to all be held in memory, so use write_record instead for resources with many rows
 def write_many(rows, resource, schema, mdata, dt):
