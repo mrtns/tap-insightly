@@ -29,7 +29,7 @@ def get_generic(source, url, qs={}):
             + (
                 # can only filter from the /search endpoint
                 ""
-                if "date_updated_utc" not in qs
+                if "updated_after_utc" not in qs or qs.get('updated_after_utc') is None
                 else "/Search"
             )
             + query_string
